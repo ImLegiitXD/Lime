@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="viamcp">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/viamcp/ViaVersion-4.1.2-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/viamcp/ViaRewind-2.0.3-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/viamcp/ViaSnakeYaml-1.27.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/viamcp/ViaBackwards-4.1.2-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

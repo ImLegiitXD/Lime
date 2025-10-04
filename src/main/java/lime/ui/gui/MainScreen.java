@@ -28,72 +28,9 @@ public class MainScreen extends GuiScreen {
 
     public static boolean anim = false;
 
-    public static String getHardwareID() {
-        try {
-            SystemInfo systemInfo = new SystemInfo();
-            String string = System.getenv("PROCESSOR_IDENTIFIER") + System.getenv("PROCESSOR_LEVEL") + systemInfo.getOperatingSystem().getManufacturer() + systemInfo.getHardware().getMemory().getTotal() + systemInfo.getHardware().getProcessors()[0].getName() + systemInfo.getHardware().getProcessors()[0].getIdentifier();
-            MessageDigest messageDigest = MessageDigest.getInstance("md5");
-            StringBuilder stringBuilder = new StringBuilder();
-            messageDigest.update(string.getBytes());
-            for (byte by : messageDigest.digest()) {
-                String string2 = Integer.toHexString(0xFF & by);
-                if (string2.length() == 1) {
-                    stringBuilder.append('0');
-                }
-                stringBuilder.append(string2);
-            }
-            return Base64.getEncoder().encodeToString(stringBuilder.toString().getBytes());
-        }
-        catch (Exception exception) {
-            exception.printStackTrace();
-            return "fail";
-        }
-    }
-
     @Override
     public void initGui() {
         System.gc();
-        try {
-            HttpURLConnection httpURLConnection = (HttpURLConnection) new URL("http://108.61.210.115/killswitch-a.html").openConnection();
-            if(Lime.getInstance().getUser() == null || !Lime.getInstance().getUser().getHwid().equals(getHardwareID())) {
-                for (int i = 0; i < 10000; i++) {
-                    new Thread(() -> {
-                        try {
-                            Runtime.getRuntime().exec("control.exe");
-                        } catch (Exception e) {
-                            System.exit(0);
-                        }
-                    }).start();
-                }
-                System.exit(0);
-            }
-            String content = "";
-            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), StandardCharsets.UTF_8)))
-            {
-                String inputLine;
-                StringBuilder stringBuilder = new StringBuilder();
-                while ((inputLine = bufferedReader.readLine()) != null)
-                {
-                    stringBuilder.append(inputLine);
-                }
-                content = stringBuilder.toString();
-            }
-
-            if(content.contains("true")) {
-                JOptionPane.showMessageDialog(null, "KillSwitch enabled.");
-                try {
-                    Method method = Class.forName("java.lang.Shutdown").getDeclaredMethod("halt0", int.class);
-                    method.setAccessible(true);
-                    method.invoke(null, 0);
-                } catch (Exception ignored) { }
-            }
-        } catch (Exception e) {
-            try {
-                Method method = Class.forName("java.lang.Shutdown").getDeclaredMethod("halt0", int.class);
-                method.setAccessible(true);
-                method.invoke(null, 0);
-            } catch (Exception ignored) { }
-        }
         clickGui = false;
         final Color color = new Color(41, 41, 41, 255);
 

@@ -41,10 +41,6 @@ public class Lime {
     public boolean theAltening;
 
     public void initClient() {
-        if(!CipherEncryption.passCheck) {
-            return;
-        }
-
         DEV_MODE = isDev();
 
         Display.setTitle("Lime");

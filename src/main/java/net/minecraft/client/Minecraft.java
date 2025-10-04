@@ -969,9 +969,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
      */
     private void runGameLoop() throws IOException
     {
-        if(!CipherEncryption.passCheck && !(currentScreen instanceof LoginScreen)) {
-            shutdown();
-        }
         EventBus.INSTANCE.call(new EventGameLoop(this.timer));
         long currentTime = getTime();
         int deltaTime = (int) (currentTime - lastFrame);
