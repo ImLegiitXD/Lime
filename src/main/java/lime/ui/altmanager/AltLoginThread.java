@@ -43,10 +43,10 @@ public class AltLoginThread extends Thread {
         return null;
     }
 
-    public static Session createMicrosoftSession(String username, String password) {
+    public static Session createMicrosoftSession() {
         try {
             MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
-            MicrosoftAuthResult result = authenticator.loginWithCredentials(username, password);
+            MicrosoftAuthResult result = authenticator.loginWithWebview();
             return new Session(result.getProfile().getName(), result.getProfile().getId(), result.getAccessToken(), "legacy");
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +61,7 @@ public class AltLoginThread extends Thread {
             mc.session = new Session(this.username, "", "", "mojang");
             this.status = "§aLogged in as " + this.username + " (Cracked)";
         } else {
-            Session session = microsoft ? createMicrosoftSession(this.username, this.password) : createSession(username, password);
+            Session session = microsoft ? createMicrosoftSession() : createSession(username, password);
             if(session == null) {
                 this.status = "§4Invalid mail or password!";
                 return;
